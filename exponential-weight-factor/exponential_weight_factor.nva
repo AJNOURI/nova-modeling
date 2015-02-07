@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nova Dynamic Systems Modeling Platform
+	 c. 2010 Richard M. Salter
+-->
+<project name="exponential_weight_factor" version="V. 2.0 Beta R9 for Windows (Mon Sep 02 16:55:00 GMT 2013)" mainPaneSplit="179">
+   <model id="2" base="nova_fish" seqNo="0" bot="0" top="12000" delta="100" speed="1000" method="RK4" actionPaneSplit="400" script="">
+      <stock id="0" base="X" seqNo="0" x="266" y="106" exp="10" width="40" height="40" history="0" travel="false" noNeg="false">
+         <comment value=""/>
+      </stock>
+      <flow id="1" base="changeX" seqNo="0" x="109" y="35" exp="0.1*X" width="22" height="19" biflow="false" targetId="0">
+         <sourcecloud x="38" y="32"/>
+         <comment value=""/>
+      </flow>
+      <graph id="2" base="GraphX" seqNo="0" x="107" y="261" width="330" height="370" altX="97" altY="268" pagesize="1">
+         <displays>
+            <graphinfo title="GraphX" type="TIMESERIES" xlo="0.0" xhi="12.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="0" index="0" color="-16776961" precision="2" scale="Auto" lo="8.839958068957747" hi="34.3608805518873" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <arrow x="144" y="122" sourceId="0" targetId="1"/>
+      <connection sourceId="0" sPin="0" targetId="2" tPin="0"/>
+   </model>
+   <model id="1" base="logistical_growth_modeling1" seqNo="0" bot="0" top="100000" delta="100" speed="1000" method="RK4" actionPaneSplit="434" script="">
+      <stock id="0" base="X" seqNo="0" x="319" y="239" exp="10" width="40" height="40" history="0" travel="false" noNeg="false">
+         <comment value=""/>
+      </stock>
+      <term id="5" base="InitX" seqNo="0" x="84" y="337" exp="10" width="20" height="20" batched="false" bot="0" top="20000" delta="1000" batchOrder="-1">
+         <comment value=""/>
+      </term>
+      <term id="2" base="K" seqNo="0" x="84" y="127" exp="100" width="20" height="20" batched="false" bot="0" top="20000" delta="1000" batchOrder="-1">
+         <comment value=""/>
+      </term>
+      <term id="1" base="r" seqNo="0" x="84" y="182" exp="0.1" width="20" height="20" batched="false" bot="0" top="20000" delta="1000" batchOrder="-1" precision="2">
+         <comment value=""/>
+      </term>
+      <flow id="3" base="changeX" seqNo="0" x="180" y="251" exp="r*X*(1-X/K)" width="22" height="19" biflow="true" targetId="0">
+         <sourcecloud x="56" y="250"/>
+         <comment value=""/>
+      </flow>
+      <graph id="4" base="GraphX" seqNo="0" x="333" y="341" width="330" height="370" altX="67" altY="406" pagesize="1" compDisplay="true">
+         <displays>
+            <graphinfo title="GraphX" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="0" index="0" color="-16776961" precision="2" scale="Auto" lo="0.0" hi="1.05" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <arrow x="135" y="164" sourceId="1" targetId="3"/>
+      <arrow x="260" y="156" sourceId="0" targetId="3"/>
+      <arrow x="285" y="306" sourceId="5" targetId="0"/>
+      <arrow x="187" y="159" sourceId="2" targetId="3"/>
+      <connection sourceId="0" sPin="0" targetId="4" tPin="0"/>
+   </model>
+   <model id="0" base="exponential_weight_factor" seqNo="0" bot="0" top="20000" delta="100" speed="1000" method="RK4" actionPaneSplit="452" script="">
+      <stock id="0" base="oldaverage" seqNo="0" x="321" y="175" exp="currentqueuesize" width="40" height="40" history="0" travel="false" noNeg="false" discrete="true">
+         <comment value=""/>
+      </stock>
+      <term id="3" base="currentqueuesize" seqNo="0" x="43" y="325" exp="Math.random() * 100" width="20" height="20" batched="false" bot="0" top="20000" delta="1000" batchOrder="-1" precision="1">
+         <comment value=""/>
+      </term>
+      <flow id="2" base="newaverage" seqNo="0" x="157" y="184" exp="(oldaverage * ( 1 - (1/Math.pow(2,(n))))) + (currentqueuesize * 1/Math.pow(2,(n)))" width="22" height="19" biflow="true" targetId="0">
+         <sourcecloud x="40" y="185"/>
+         <comment value="http://en.wikipedia.org/wiki/Weighted_random_early_detection&#10;http://www.novamodeler.com/novascript-cheatsheet/&#10;http://www.w3schools.com/jsref/jsref_pow.asp"/>
+      </flow>
+      <slider id="7" base="n" seqNo="0" x="152" y="34" width="30" height="30" lo="2.0" hi="15.0" value="3.006" dec="3" altX="110" altY="794">
+         <comment value=""/>
+      </slider>
+      <graph id="4" base="GraphAverage" seqNo="0" x="155" y="320" width="591" height="369" altX="54" altY="349" pagesize="1">
+         <displays>
+            <graphinfo title="GraphAverage" type="TIMESERIES" xlo="0.0" xhi="20.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="3" index="0" color="-65536" precision="2" scale="Auto" lo="0.0" hi="103.98019385016168" alias=""/>
+               <graphdisplay id="2" index="0" color="-16711936" precision="2" scale="Auto" lo="55.05145431200904" hi="55.59777784744192" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <label id="8" x="34" y="389" width="452" height="61" text="(oldaverage * ( 1 - (1/Math.pow(2,(n))))) + (currentqueuesize * 1/Math.pow(2,(n)))" canvastype="FLOW"/>
+      <arrow x="239" y="80" sourceId="0" targetId="2"/>
+      <arrow x="109" y="236" sourceId="3" targetId="2"/>
+      <arrow x="195" y="237" sourceId="3" targetId="0"/>
+      <arrow x="149" y="132" sourceId="7" targetId="2"/>
+      <connection sourceId="2" sPin="0" targetId="4" tPin="0"/>
+      <connection sourceId="7" sPin="0" targetId="2" tPin="-1"/>
+      <connection sourceId="3" sPin="0" targetId="4" tPin="0"/>
+   </model>
+   <script value="var exponential_weight_factor = new Project('exponential_weight_factor');&#10;beginProject(exponential_weight_factor, 0.000, 20.000, 0.100, 'rk4');&#10;&#10;exponential_weight_factor.defineSchema('main', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    sequences: 'Average',&#10;    flows: 'queuesize',&#10;    terms: 'currentqueuesize',&#10;    controls : {&#10;        n: &#34;main_n&#34;,&#10;    },&#10;    displays: {&#10;        GraphAverage: &#34;main_GraphAverage&#34;,&#10;    },&#10;    dynamics: [&#10;        'Average.initial = currentqueuesize',&#10;        'Average.next = (Average * ( 1 - (1/Math.pow(2,(n))))) + (currentqueuesize * 1/Math.pow(2,(n)))',&#10;        'queuesize = (Average * ( 1 - (1/Math.pow(2,(n))))) + (currentqueuesize * 1/Math.pow(2,(n)))',&#10;        'queuesize.uniflow = false',&#10;        'currentqueuesize = Math.random() * 100',&#10;    ],&#10;})&#10;&#10;&#10;exponential_weight_factor.defineSchema('nova_fish', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    stocks: 'X',&#10;    flows: 'changeX',&#10;    displays: {&#10;        GraphX: &#34;nova_fish_GraphX&#34;,&#10;    },&#10;    dynamics: [&#10;        'X.initial = 10',&#10;        'changeX.output = X',&#10;        'changeX = 0.1*X',&#10;    ],&#10;})&#10;&#10;&#10;exponential_weight_factor.defineSchema('logistical_growth_modeling1', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    variables: 'X',&#10;    terms: ['InitX', 'K', 'r'],&#10;    displays: {&#10;        GraphX: &#34;logistical_growth_modeling1_GraphX&#34;,&#10;    },&#10;    dynamics: [&#10;        'X.initial = 10',&#10;        'X.prime = r*X*(1-X/K)',&#10;        'InitX = 10',&#10;        'K = 100',&#10;        'r = 0.1',&#10;    ],&#10;})&#10;&#10;&#10;&#10;// Displays &amp; Controls&#10;&#10;exponential_weight_factor.defineSchema('main_n', {&#10;    specifies: &#34;Slider&#34;,&#10;    proxy: &#34;n&#34;,&#10;    lo: 2.000,&#10;    hi: 15.000,&#10;    dec: 3,&#10;    value: 10.000&#10;});&#10;exponential_weight_factor.defineSchema('main_GraphAverage', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;GraphAverage&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[currentqueuesize, queuesize]]&#34;&#10;});&#10;exponential_weight_factor.defineSchema('nova_fish_GraphX', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;GraphX&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[X]]&#34;&#10;});&#10;exponential_weight_factor.defineSchema('logistical_growth_modeling1_GraphX', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;GraphX&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[X]]&#34;&#10;});&#10;&#10;// Aux&#10;&#10;exponential_weight_factor.defineAux('main', {&#10;    Average: {type: 'sequence', id: 0, seqno: 0, x: 321, y: 175},&#10;    queuesize: {type: 'flow', id: 2, seqno: 0, x: 157, y: 184},&#10;    currentqueuesize: {type: 'term', id: 3, seqno: 0, x: 39, y: 269},&#10;    n: {type: 'slider', id: 7, seqno: 0, x: 114, y: 56},&#10;    GraphAverage:&#10;        {type: 'graph', id: 4, seqno: 0, x: 335, y: 302,&#10;         info: [&#10;                {title: 'GraphAverage', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 20.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [3, 2],&#10;                           alias: ['', ''],&#10;                           color: [-65536, -16711936],&#10;                           scale: ['Auto', 'Auto'],&#10;                           lo: [0.0, 55.05145431200904],&#10;                           hi: [103.98019385016168, 55.59777784744192],&#10;                           index: [0, 0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;exponential_weight_factor.defineAux('nova_fish', {&#10;    X: {type: 'stock', id: 0, seqno: 0, x: 266, y: 106},&#10;    changeX: {type: 'flow', id: 1, seqno: 0, x: 109, y: 35},&#10;    GraphX:&#10;        {type: 'graph', id: 2, seqno: 0, x: 107, y: 261,&#10;         info: [&#10;                {title: 'GraphX', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 12.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [0],&#10;                           alias: [''],&#10;                           color: [-16776961],&#10;                           scale: ['Auto'],&#10;                           lo: [8.839958068957747],&#10;                           hi: [34.3608805518873],&#10;                           index: [0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;exponential_weight_factor.defineAux('logistical_growth_modeling1', {&#10;    X: {type: 'variable', id: 0, seqno: 0, x: 319, y: 239},&#10;    changeX: {type: 'flow', id: 3, seqno: 0, x: 180, y: 251},&#10;    InitX: {type: 'term', id: 5, seqno: 0, x: 84, y: 337},&#10;    K: {type: 'term', id: 2, seqno: 0, x: 84, y: 127},&#10;    r: {type: 'term', id: 1, seqno: 0, x: 84, y: 182},&#10;    GraphX:&#10;        {type: 'graph', id: 4, seqno: 0, x: 333, y: 341,&#10;         info: [&#10;                {title: 'GraphX', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 100.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [0],&#10;                           alias: [''],&#10;                           color: [-16776961],&#10;                           scale: ['Auto'],&#10;                           lo: [0.0],&#10;                           hi: [1.05],&#10;                           index: [0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;endProject();"/>
+</project>
