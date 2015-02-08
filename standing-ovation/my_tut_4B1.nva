@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nova Dynamic Systems Modeling Platform
+	 c. 2010-2015 Richard M. Salter
+-->
+<project name="my_tut_4B1" version="V. 2.0 Beta R13.4.2 for Linux (Sat Jan 31 21:56:00 GMT 2015)" mainPaneSplit="350">
+   <codemodel base="my_cc" args="x" results="bm0 bm1 bm2 bm3 bm4" statics="" body="bm0 = x(0);&#10;bm1 = x(1);&#10;bm2 = x(2);&#10;bm3 = x(3);&#10;bm4 = x(4);"/>
+   <model id="1" base="my_tut_4A" seqNo="0" bot="0" top="100000" delta="1000.0" speed="1000" method="DISCRETE" actionPaneSplit="450" captured="true" mainmodel="false" script="">
+      <dataoutput id="3" base="xout" seqNo="0" x="335" y="102" exp="X" pinNo="0"/>
+      <stock id="1" base="X" seqNo="0" x="239" y="78" exp="5" width="40" height="40" history="0" travel="true" noNeg="false">
+         <comment value=""/>
+      </stock>
+      <flow id="0" base="dx" seqNo="0" x="102" y="125" exp="X * ((RANDOM() * 0.1)- 0.05)" width="22" height="19" biflow="true" targetId="1">
+         <sourcecloud x="14" y="126"/>
+         <comment value=""/>
+      </flow>
+      <graph id="2" base="my_graph" seqNo="0" x="249" y="225" width="384" height="359" altX="4" altY="6" pagesize="1">
+         <displays>
+            <graphinfo title="my_graph" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="1" index="0" color="-16776961" precision="2" scale="Auto" lo="0.08314701081122614" hi="0.11702080935705882" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <arrow x="193" y="134" sourceId="1" targetId="0"/>
+      <arrow x="299" y="104" sourceId="1" targetId="3"/>
+      <connection sourceId="1" sPin="0" targetId="2" tPin="0"/>
+   </model>
+   <model id="0" base="my_tut_4B1" seqNo="0" bot="0" top="100000" delta="1000.0" speed="1000" method="DISCRETE" actionPaneSplit="467" captured="true" mainmodel="true" script="">
+      <agentvector id="0" base="my_av" seqNo="0" x="20" y="150" exp="0.0" width="80" height="30" length="5" rows="8" cols="8" clocked="false" initializer="&#34;my_tut_4A&#34;" model="my_tut_4A"/>
+      <codechip id="1" base="my_cc" seqNo="1" x="125" y="160" width="50" height="50"/>
+      <graph id="2" base="my_graph" seqNo="0" x="246" y="167" width="330" height="370" altX="2" altY="24" pagesize="1">
+         <displays>
+            <graphinfo title="my_graph" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="1" index="1" color="-16776961" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm0"/>
+               <graphdisplay id="1" index="2" color="-65536" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm1"/>
+               <graphdisplay id="1" index="3" color="-16711936" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm2"/>
+               <graphdisplay id="1" index="4" color="-16711681" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm3"/>
+               <graphdisplay id="1" index="5" color="-65281" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm4"/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <connection sourceId="1" sPin="1" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="3" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="5" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="2" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="4" targetId="2" tPin="0"/>
+      <connection sourceId="0" sPin="2" targetId="1" tPin="0"/>
+   </model>
+   <script value="var my_tut_4A1 = new Project('my_tut_4A1');&#10;beginProject(my_tut_4A1, 0.000, 100.000, 1, 'discrete');&#10;&#10;my_tut_4A1.defineSchema('main', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    methods: {&#10;        my_cc: Dynamic(&#10;          function(x){&#10;            var bm0,bm1,bm2,bm3,bm4;&#10;            bm0 = x(0);&#10;            bm1 = x(1);&#10;            bm2 = x(2);&#10;            bm3 = x(3);&#10;            bm4 = x(4);&#10;            return {bm0:bm0,bm1:bm1,bm2:bm2,bm3:bm3,bm4:bm4};&#10;          },&#10;          ['bm0', 'bm1', 'bm2', 'bm3', 'bm4'], true, false),&#10;    },&#10;    codechips: 'my_cc_1',&#10;    chips: {my_av: 'my_tut_4A1_my_av'},&#10;    displays: {&#10;        my_graph: &#34;main_my_graph&#34;,&#10;    },&#10;    settings: {&#10;        'my_cc_1.x': 'my_av.xout',&#10;    },&#10;})&#10;&#10;my_tut_4A1.defineSchema(&#34;my_tut_4A1_my_av&#34;, {&#10;    specifies: 'AGENTVECTOR',&#10;    count: 5,&#10;    dimension: {rows: 8, cols: 8},&#10;    agent: &#34;my_tut_4A&#34;,&#10;    motion: &#34;continuous&#34;,&#10;});&#10;&#10;my_tut_4A1.defineSchema('my_tut_4A', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    variables: 'X',&#10;    terms: 'xout',&#10;    outpins: 'xout',&#10;    displays: {&#10;        my_graph: &#34;my_tut_4A_my_graph&#34;,&#10;    },&#10;    dynamics: [&#10;        'X.initial = 5',&#10;        'X.prime = X * ((RANDOM() * 0.1)- 0.05)',&#10;        'xout = X',&#10;    ],&#10;})&#10;&#10;&#10;&#10;// Displays &amp; Controls&#10;&#10;my_tut_4A1.defineSchema('main_my_graph', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;my_graph&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[my_cc_1, my_cc_1, my_cc_1, my_cc_1, my_cc_1]]&#34;&#10;});&#10;my_tut_4A1.defineSchema('my_tut_4A_my_graph', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;my_graph&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[X]]&#34;&#10;});&#10;&#10;// Aux&#10;&#10;my_tut_4A1.defineAux('main', {&#10;    my_cc: {type: 'codechip', id: 1, seqno: 1, x: 125, y: 160},&#10;    my_av: {type: 'agentvector', id: 0, seqno: 0, x: 20, y: 150},&#10;    my_graph:&#10;        {type: 'graph', id: 2, seqno: 0, x: 246, y: 167,&#10;         info: [&#10;                {title: 'my_graph', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 100.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [1, 1, 1, 1, 1],&#10;                           alias: ['bm0', 'bm1', 'bm2', 'bm3', 'bm4'],&#10;                           color: [-16776961, -65536, -16711936, -16711681, -65281],&#10;                           scale: ['Self', 'Self', 'Self', 'Self', 'Self'],&#10;                           lo: [0.0, 0.0, 0.0, 0.0, 0.0],&#10;                           hi: [15.0, 15.0, 15.0, 15.0, 15.0],&#10;                           index: [1, 2, 3, 4, 5]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;my_tut_4A1.defineAux('my_tut_4A', {&#10;    X: {type: 'variable', id: 1, seqno: 0, x: 239, y: 78},&#10;    dx: {type: 'flow', id: 0, seqno: 0, x: 102, y: 125},&#10;    xout: {type: 'term', id: 3, seqno: 0, x: 335, y: 102, type: 'OutData', pinNo: 0},&#10;    my_graph:&#10;        {type: 'graph', id: 2, seqno: 0, x: 249, y: 225,&#10;         info: [&#10;                {title: 'my_graph', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 100.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [1],&#10;                           alias: [''],&#10;                           color: [-16776961],&#10;                           scale: ['Auto'],&#10;                           lo: [0.08314701081122614],&#10;                           hi: [0.11702080935705882],&#10;                           index: [0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;endProject();"/>
+</project>

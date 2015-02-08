@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nova Dynamic Systems Modeling Platform
+	 c. 2010-2015 Richard M. Salter
+-->
+<project name="my_tut_4A" version="V. 2.0 Beta R13.4.2 for Linux (Sat Jan 31 21:56:00 GMT 2015)" mainPaneSplit="350">
+   <model id="0" base="my_tut_4A" seqNo="0" bot="0" top="12000" delta="1000.0" speed="1000" method="DISCRETE" actionPaneSplit="450" captured="true" mainmodel="true" script="">
+      <stock id="1" base="X" seqNo="0" x="239" y="78" exp="0.0" width="40" height="40" history="0" travel="false" noNeg="false"/>
+      <flow id="0" base="dx" seqNo="0" x="102" y="125" exp="X * ((RANDOM() * 0.1)- 0.05)" width="22" height="19" biflow="true" targetId="1">
+         <sourcecloud x="14" y="126"/>
+         <comment value=""/>
+      </flow>
+      <graph id="2" base="my_graph" seqNo="0" x="249" y="225" width="330" height="370" altX="4" altY="6" pagesize="1">
+         <displays>
+            <graphinfo title="my_graph" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="1" index="0" color="-16776961" precision="2" scale="Auto" lo="-5.0E-9" hi="5.0E-9" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <arrow x="193" y="134" sourceId="1" targetId="0"/>
+      <connection sourceId="1" sPin="0" targetId="2" tPin="0"/>
+   </model>
+   <script value="var my_tut_4A = new Project('my_tut_4A');&#10;beginProject(my_tut_4A, 0.000, 12.000, 1, 'discrete');&#10;&#10;my_tut_4A.defineSchema('main', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    variables: 'X',&#10;    displays: {&#10;        my_graph: &#34;main_my_graph&#34;,&#10;    },&#10;    dynamics: [&#10;        'X.initial = 0.0',&#10;        'X.prime = X * ((RANDOM() * 0.1)-0.05)',&#10;    ],&#10;})&#10;&#10;&#10;&#10;// Displays &amp; Controls&#10;&#10;my_tut_4A.defineSchema('main_my_graph', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;my_graph&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[X]]&#34;&#10;});&#10;&#10;// Aux&#10;&#10;my_tut_4A.defineAux('main', {&#10;    X: {type: 'variable', id: 1, seqno: 0, x: 241, y: 53},&#10;    dx: {type: 'flow', id: 0, seqno: 0, x: 102, y: 125},&#10;    my_graph:&#10;        {type: 'graph', id: 2, seqno: 0, x: 249, y: 225,&#10;         info: [&#10;                {title: 'my_graph', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 12.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [1],&#10;                           alias: [''],&#10;                           color: [-16776961],&#10;                           scale: ['Auto'],&#10;                           lo: [0.0],&#10;                           hi: [100.0],&#10;                           index: [0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;endProject();"/>
+</project>

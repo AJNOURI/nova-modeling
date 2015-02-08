@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Nova Dynamic Systems Modeling Platform
+	 c. 2010-2015 Richard M. Salter
+-->
+<project name="my_so" version="V. 2.0 Beta R13.4.2 for Linux (Sat Jan 31 21:56:00 GMT 2015)" mainPaneSplit="350">
+   <codemodel base="my_cc" args="x" results="bm0 bm1 bm2 bm3 bm4" statics="" body="bm0 = x(0);&#10;bm1 = x(1);&#10;bm2 = x(2);&#10;bm3 = x(3);&#10;bm4 = x(4);"/>
+   <model id="1" base="my_tut_4A" seqNo="0" bot="0" top="100000" delta="1000.0" speed="871" method="DISCRETE" actionPaneSplit="450" captured="true" mainmodel="false" script="">
+      <dataoutput id="3" base="stateout" seqNo="0" x="336" y="71" exp="State" pinNo="0">
+         <comment value=""/>
+      </dataoutput>
+      <stock id="1" base="State" seqNo="0" x="239" y="78" exp="1" width="40" height="40" history="0" travel="true" noNeg="false">
+         <comment value=""/>
+      </stock>
+      <term id="5" base="init_y" seqNo="0" x="49" y="309" exp="(myId - (myId % 10)) / 10" width="20" height="20" batched="false" bot="0" top="20000" delta="1000.0" batchOrder="-1" property="true">
+         <comment value=""/>
+      </term>
+      <term id="4" base="init_x" seqNo="0" x="48" y="248" exp="myId % 10" width="20" height="20" batched="false" bot="0" top="20000" delta="1000.0" batchOrder="-1" property="true">
+         <comment value=""/>
+      </term>
+      <term id="6" base="initialstate" seqNo="0" x="93" y="17" exp="1.0" width="20" height="20" batched="false" bot="0" top="20000" delta="1000.0" batchOrder="-1" property="true">
+         <comment value=""/>
+      </term>
+      <flow id="0" base="dstate" seqNo="0" x="130" y="107" exp="State * (RANDOM(0,1))" width="22" height="19" biflow="true" targetId="1">
+         <sourcecloud x="14" y="126"/>
+         <comment value=""/>
+      </flow>
+      <graph id="2" base="my_graph" seqNo="0" x="249" y="225" width="384" height="359" altX="4" altY="6" pagesize="1">
+         <displays>
+            <graphinfo title="my_graph" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="1" index="0" color="-16776961" precision="2" scale="Auto" lo="4.093776696377961" hi="6.130487238760299" alias=""/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <arrow x="299" y="104" sourceId="1" targetId="3"/>
+      <connection sourceId="1" sPin="0" targetId="2" tPin="0"/>
+   </model>
+   <model id="0" base="my_so" seqNo="0" bot="0" top="100000" delta="1000.0" speed="871" method="DISCRETE" actionPaneSplit="372" captured="true" mainmodel="true" script="">
+      <agentvector id="0" base="my_av" seqNo="0" x="17" y="78" exp="0.0" width="80" height="30" length="100" rows="10" cols="10" clocked="false" initializer="&#34;my_tut_4A&#34;" model="my_tut_4A"/>
+      <codechip id="1" base="my_cc" seqNo="1" x="125" y="160" width="50" height="50"/>
+      <plugin id="5" base="my_avx" seqNo="0" x="215" y="34" exp="0.0" width="50" height="40" className="plugins.AgentViewerX" inputs="4" outputs="4" altX="7" altY="32" unique="false">
+         <properties>
+            <entry key="bgimagefile" value=""/>
+            <entry key="cell_colors" value="255,255,255 255,0,0 255,255,0 0,255,0 0,255,255 0,0,255 255,0,255 255,255,255"/>
+            <entry key="constant" value="false"/>
+            <entry key="rowheight" value="20"/>
+            <entry key="agentsizelo" value="0"/>
+            <entry key="start" value="0.0"/>
+            <entry key="agentsizing" value="false"/>
+            <entry key="hex" value="false"/>
+            <entry key="agimagefile" value=""/>
+            <entry key="cell_color_low" value="0.0"/>
+            <entry key="rows" value="10"/>
+            <entry key="cols" value="10"/>
+            <entry key="agenticon" value="Ball"/>
+            <entry key="agent_colors" value="0,0,255 255,0,0 51,0,255 255,0,255 255,0,0 255,153,0 255,255,0 255,255,255"/>
+            <entry key="avalue" value=""/>
+            <entry key="number_cell_colors" value="8"/>
+            <entry key="colwidth" value="20"/>
+            <entry key="cell_color_high" value="100.0"/>
+            <entry key="cvalue" value=""/>
+            <entry key="agent_vals" value="0.0 1.0 8.0 10.0 12.0 14.0 16.0 7.0"/>
+            <entry key="agent_color_assigned" value="true"/>
+            <entry key="number_agent_colors" value="2"/>
+            <entry key="agentsizehi" value="100"/>
+         </properties>
+      </plugin>
+      <graph id="2" base="my_graph" seqNo="0" x="246" y="167" width="330" height="370" altX="7" altY="284" pagesize="1">
+         <displays>
+            <graphinfo title="my_graph" type="TIMESERIES" xlo="0.0" xhi="100.0" xRange="true" manualColors="false" rate="1">
+               <graphdisplay id="1" index="1" color="-16776961" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm0"/>
+               <graphdisplay id="1" index="2" color="-65536" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm1"/>
+               <graphdisplay id="1" index="3" color="-16711936" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm2"/>
+               <graphdisplay id="1" index="4" color="-16711681" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm3"/>
+               <graphdisplay id="1" index="5" color="-65281" precision="2" scale="Self" lo="0.0" hi="15.0" alias="bm4"/>
+            </graphinfo>
+         </displays>
+      </graph>
+      <connection sourceId="0" sPin="1" targetId="5" tPin="3"/>
+      <connection sourceId="1" sPin="5" targetId="2" tPin="0"/>
+      <connection sourceId="0" sPin="2" targetId="5" tPin="0"/>
+      <connection sourceId="1" sPin="4" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="1" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="2" targetId="2" tPin="0"/>
+      <connection sourceId="1" sPin="3" targetId="2" tPin="0"/>
+      <connection sourceId="0" sPin="2" targetId="1" tPin="0"/>
+   </model>
+   <script value="var my_so = new Project('my_so');&#10;beginProject(my_so, 0.000, 100.000, 1, 'discrete');&#10;&#10;my_so.defineSchema('main', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    methods: {&#10;        my_cc: Dynamic(&#10;          function(x){&#10;            var bm0,bm1,bm2,bm3,bm4;&#10;            bm0 = x(0);&#10;            bm1 = x(1);&#10;            bm2 = x(2);&#10;            bm3 = x(3);&#10;            bm4 = x(4);&#10;            return {bm0:bm0,bm1:bm1,bm2:bm2,bm3:bm3,bm4:bm4};&#10;          },&#10;          ['bm0', 'bm1', 'bm2', 'bm3', 'bm4'], true, false),&#10;    },&#10;    codechips: 'my_cc_1',&#10;    chips: {my_av: 'my_so_my_av'},&#10;    plugins: {&#10;        my_avx: &#34;my_so_my_avx&#34;,&#10;    },&#10;    displays: {&#10;        my_graph: &#34;main_my_graph&#34;,&#10;    },&#10;    settings: {&#10;        'my_cc_1.x': 'my_av.stateout',&#10;        'my_avx.AgentColorIn': 'my_av.stateout',&#10;        'my_avx.AData': 'my_av.AData',&#10;    },&#10;})&#10;&#10;my_so.defineSchema(&#34;my_so_my_av&#34;, {&#10;    specifies: 'AGENTVECTOR',&#10;    count: 100,&#10;    dimension: {rows: 10, cols: 10},&#10;    agent: &#34;my_tut_4A&#34;,&#10;    motion: &#34;continuous&#34;,&#10;});&#10;&#10;my_so.defineSchema('my_tut_4A', {&#10;    specifies: &#34;CAPSULE&#34;,&#10;    properties: {&#10;        init_x: null,&#10;        init_y: null,&#10;    },&#10;    variables: 'State',&#10;    terms: ['stateout', 'init_x', 'init_y'],&#10;    outpins: 'stateout',&#10;    displays: {&#10;        my_graph: &#34;my_tut_4A_my_graph&#34;,&#10;    },&#10;    dynamics: [&#10;        'State.initial = 1',&#10;        'State.prime = State * (RANDOM(0,1))',&#10;        'stateout = State',&#10;        'init_x = myId % 10',&#10;        'init_y = (myId - (myId % 10)) / 10',&#10;    ],&#10;})&#10;&#10;&#10;&#10;// Displays &amp; Controls&#10;&#10;my_so.defineSchema('my_so_my_avx', {&#10;    specifies: &#34;VPlugin&#34;,&#10;    vclass: &#34;plugins.AgentViewerX&#34;,&#10;    proxy: &#34;my_avx&#34;,&#10;    inputs: 4,&#10;    outputs: 4,&#10;    labels: ['AgentColorIn', 'CellColorIn', 'AgentSize', 'AData', 'AgentColorOut', 'CellColorOut', 'AgentSizeOut', 'AgentDataOut'],&#10;    unique: false&#10;});&#10;my_so.defineSchema('main_my_graph', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;my_graph&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[my_cc_1, my_cc_1, my_cc_1, my_cc_1, my_cc_1]]&#34;&#10;});&#10;my_so.defineSchema('my_tut_4A_my_graph', {&#10;    specifies: &#34;Graph&#34;,&#10;    proxy: &#34;my_graph&#34;,&#10;    type: &#34;TIMESERIES&#34;,&#10;    display: &#34;[[State]]&#34;&#10;});&#10;&#10;// Aux&#10;&#10;my_so.defineAux('main', {&#10;    my_cc: {type: 'codechip', id: 1, seqno: 1, x: 125, y: 160},&#10;    my_av: {type: 'agentvector', id: 0, seqno: 0, x: 17, y: 78},&#10;    my_avx: {type: 'plugin', id: 5, seqno: 0, x: 215, y: 34, targets: [0, -1, -1, 0], indexes: [2, -1, -1, 1],&#10;        bgimagefile: '',&#10;        cell_colors: '255,255,255 255,0,0 255,255,0 0,255,0 0,255,255 0,0,255 255,0,255 255,255,255',&#10;        constant: 'false',&#10;        rowheight: '20',&#10;        agentsizelo: '0',&#10;        start: '0.0',&#10;        agentsizing: 'false',&#10;        hex: 'false',&#10;        agimagefile: '',&#10;        cell_color_low: '0.0',&#10;        rows: '10',&#10;        cols: '10',&#10;        agenticon: 'Ball',&#10;        agent_colors: '0,0,255 255,0,0 51,0,255 255,0,255 255,0,0 255,153,0 255,255,0 255,255,255',&#10;        avalue: '',&#10;        number_cell_colors: '8',&#10;        colwidth: '20',&#10;        cell_color_high: '100.0',&#10;        cvalue: '',&#10;        agent_vals: '0.0 1.0 8.0 10.0 12.0 14.0 16.0 7.0',&#10;        agent_color_assigned: 'true',&#10;        number_agent_colors: '2',&#10;        agentsizehi: '100',&#10;    },&#10;    my_graph:&#10;        {type: 'graph', id: 2, seqno: 0, x: 246, y: 167,&#10;         info: [&#10;                {title: 'my_graph', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 100.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [1, 1, 1, 1, 1],&#10;                           alias: ['bm0', 'bm1', 'bm2', 'bm3', 'bm4'],&#10;                           color: [-16776961, -65536, -16711936, -16711681, -65281],&#10;                           scale: ['Self', 'Self', 'Self', 'Self', 'Self'],&#10;                           lo: [0.0, 0.0, 0.0, 0.0, 0.0],&#10;                           hi: [15.0, 15.0, 15.0, 15.0, 15.0],&#10;                           index: [1, 2, 3, 4, 5]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;my_so.defineAux('my_tut_4A', {&#10;    State: {type: 'variable', id: 1, seqno: 0, x: 239, y: 78},&#10;    dstate: {type: 'flow', id: 0, seqno: 0, x: 102, y: 125},&#10;    stateout: {type: 'term', id: 3, seqno: 0, x: 336, y: 71, type: 'OutData', pinNo: 0},&#10;    init_x: {type: 'term', id: 4, seqno: 0, x: 48, y: 248},&#10;    init_y: {type: 'term', id: 5, seqno: 0, x: 49, y: 309},&#10;    my_graph:&#10;        {type: 'graph', id: 2, seqno: 0, x: 249, y: 225,&#10;         info: [&#10;                {title: 'my_graph', comp: false, collect: false, type: 'TIMESERIES',&#10;                 xlo: 0.0, xhi: 100.0, xRange: true, connect: false, rate: 1,&#10;                 display: {target: [1],&#10;                           alias: [''],&#10;                           color: [-16776961],&#10;                           scale: ['Auto'],&#10;                           lo: [4.093776696377961],&#10;                           hi: [6.130487238760299],&#10;                           index: [0]}&#10;                }&#10;               ]&#10;        }&#10;});&#10;&#10;endProject();"/>
+</project>
